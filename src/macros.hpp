@@ -36,7 +36,10 @@ typedef std::vector< std::vector<double> > realmat;
 /* Set the coordinate system */
 #define SPHERICAL      (0)
 #define SINH_SPHERICAL (1)
-#define COORD_SYSTEM   SINH_SPHERICAL
+#define COORD_SYSTEM   SPHERICAL
+
+/*set cosmological constant */
+#define COSMOLOGICAL_CONSTANT (0.001)
 
 /* Set cell or vertex centered grid macros */
 #define CELL_CENTERED (0)
@@ -62,7 +65,7 @@ typedef std::vector< std::vector<double> > realmat;
 #define GAUSSIAN_SHELL_V2 (1)
 #define TANH_SHELL        (2)
 #define TANH_SHELL_V2     (3)
-#define INITIAL_CONDITION GAUSSIAN_SHELL_V2
+#define INITIAL_CONDITION GAUSSIAN_SHELL_V1
 
 /* Set ghostzones. The default is the same
  * number of ghostzones in every direction
@@ -71,8 +74,8 @@ typedef std::vector< std::vector<double> > realmat;
 #define NGHOSTS0 NGHOSTS
 
 /* Scalar field collapse parameters */
-#define R0    (2.0)
-#define DELTA (2.0)
+#define R0    (0.0)
+#define DELTA (1.0)
 #define R0_1  (5.0)
 #define R0_2  (10.0)
 
@@ -93,7 +96,7 @@ typedef std::vector< std::vector<double> > realmat;
 #define REGRID_RADIAL_POINTS       (1)
 #define REGRID_OUTER_BOUNDARY      (2)
 #define REGRID_POINT_DENSITY       (3)
-#define REGRID_OPTION              REGRID_POINT_DENSITY
+#define REGRID_OPTION              REGRID_RADIAL_POINTS
 #define REGRID_FACTOR              (0.959957707765824) // Should be < 1 for options 2 and 3, and > 1 for option 1
 #define MAX_REGRID_LEVELS          (0)
 #define REGRID_INTERP_STENCIL_SIZE (3)
