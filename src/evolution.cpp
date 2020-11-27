@@ -341,11 +341,13 @@ real evolution::pointwise_solution_of_the_Hamiltonian_constraint( const int j, g
   //midx0 é o ponto intermediario
   //
   const real half_invr = 0.5 / midx0;//1/(2*midx0)
+  const real cosmological_term = 1 - COSMOLOGICAL_CONSTANT *  SQR(midx0);
 
 #elif( COORD_SYSTEM == SINH_SPHERICAL )
   const real PhiPiTerm = 2.0 * M_PI * (SQR(sinhA) * inv_sinhW) * sinh(midx0*inv_sinhW) * cosh(midx0*inv_sinhW) / SQR(sinh_inv_W) * ( PhiSqr + PiSqr );
   const real half_invr = 0.5/( sinhW * tanh(midx0*inv_sinhW) );
-  
+  const real r_sinh = A_over_sinh_inv_W * sinh(inv_sinhW * midx0);
+  const real cosmological_term = 1 - COSMOLOGICAL_CONSTANT *  SQR(r_sinh);
 #else
   utilities::SFcollapse1D_error(COORD_SYSTEM_ERROR);
 #endif
@@ -366,7 +368,7 @@ real evolution::pointwise_solution_of_the_Hamiltonian_constraint( const int j, g
     A_old = A_new;
     
     /* Compute f and df */
-    const real tmp0 = half_invr * exp(A_old+A)*(1 - COSMOLOGICAL_CONSTANT * SQR(midx0) );
+    const real tmp0 = half_invr * exp(A_old+A)*cosmological_term;
 
     const real f  = inv_dx0 * (A_old - A) + tmp0 - half_invr - PhiPiTerm;//equacao D4 completa
     const real df = inv_dx0 + tmp0;//minha incognita do método não é r ou é? essa eq faz sentindo derivando-se em A
@@ -396,17 +398,20 @@ real evolution::pointwise_solution_of_the_polar_slicing_condition( const int j, 
   /* Step 3.b: Compute auxiliary quantities */
   const real b = a[j] + a[j-1];
   const real c = a[j] - a[j-1];
+
 #if( COORD_SYSTEM == SPHERICAL )
   const real midway_r = 0.5 * ( x[0][j] + x[0][j-1] );
+  const real cosmological_term = 1 - COSMOLOGICAL_CONSTANT * SQR (midway_r);
 
 #elif( COORD_SYSTEM == SINH_SPHERICAL )
   const real midway_r = sinhW * tanh( inv_sinhW * 0.5 * (x[0][j] + x[0][j-1]) );
-
+  const real r_sinh = A_over_sinh_inv_W * sinh(inv_sinhW * (0.5 * (x[0][j] + x[0][j-1])));
+  const real cosmological_term = 1 - COSMOLOGICAL_CONSTANT *  SQR(r_sinh);
 #else
   utilities::SFcollapse1D_error(COORD_SYSTEM_ERROR);
 #endif
 
-  const real d = ( 1.0 - 0.25 * SQR(b) * COSMOLOGICAL_CONSTANT * SQR(midway_r) )/( 2.0 * midway_r ) - inv_dx0 * c / b;
+  const real d = ( 1.0 - 0.25 * SQR(b) * cosmological_term )/( 2.0 * midway_r ) - inv_dx0 * c / b;
 
   /* Step 3.c: Compute alpha */
   return( alpha[j-1]*( 1.0 - d*dx0 )/( 1.0 + d*dx0 ) );
