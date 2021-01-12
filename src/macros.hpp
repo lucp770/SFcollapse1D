@@ -36,10 +36,14 @@ typedef std::vector< std::vector<double> > realmat;
 /* Set the coordinate system */
 #define SPHERICAL      (0)
 #define SINH_SPHERICAL (1)
-#define COORD_SYSTEM   SPHERICAL
+#define COORD_SYSTEM   SINH_SPHERICAL
 
 /*set cosmological constant */
-#define COSMOLOGICAL_CONSTANT (0.001)
+#define COSMOLOGICAL_CONSTANT (0)
+//0.0001 phi_critico = 0.3362225
+// 0.001 ate 0.01, passo 0.005
+//phi_critico deve diminuir com lambdas
+
 
 /* Set cell or vertex centered grid macros */
 #define CELL_CENTERED (0)
@@ -65,7 +69,7 @@ typedef std::vector< std::vector<double> > realmat;
 #define GAUSSIAN_SHELL_V2 (1)
 #define TANH_SHELL        (2)
 #define TANH_SHELL_V2     (3)
-#define INITIAL_CONDITION GAUSSIAN_SHELL_V1
+#define INITIAL_CONDITION GAUSSIAN_SHELL
 
 /* Set ghostzones. The default is the same
  * number of ghostzones in every direction

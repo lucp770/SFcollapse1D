@@ -380,3 +380,7 @@ int main( int argc, char *argv[] ) {
   return 0;
 
 }
+
+/* uma ideia interessante é a seguinte ao invés de se ter um if ou else para analisar se a função lapso colapsou, posso ter 3 condições
+
+*/
