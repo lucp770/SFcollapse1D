@@ -550,6 +550,7 @@ void utilities::compute_and_output_mass_aspect_function( const int which_level, 
   const int number_of_digits = 8;
   outfile.open("out/mass_"+string(number_of_digits - to_string(n).length(),'0')+to_string(n)+".dat");
   outfile.precision(15);
+
   LOOP(0,Nx0Total) {
     const real a_local = (which_level == -1) * a.level_nm1[j] + (which_level == 0) * a.level_n[j] + (which_level == 1) * a.level_np1[j];
     const real mass    = 0.5 * r_ito_x0[j] * ( 1.0 - 1.0/SQR(a_local) );
@@ -645,7 +646,6 @@ void utilities::NaN_checker( const int n, grid::parameters grid, gridfunction ph
       utilities::SFcollapse1D_error( NAN_ERROR );
     }
   }
-
 }
 
 /* Various errors that may occur during execution */
@@ -714,3 +714,15 @@ void utilities::SFcollapse1D_error( const int error ) {
   }
 
 }
+/*
+void utilities::execution_checkpoint(){
+
+  ofstream output_info;
+  // const string filename = "out_central_values"+to_string(phi0)+".dat";
+  const string filename = "output.dat";
+    output_info.open(filename,ios_base::app);
+    output_info << 
+  out_central.close();
+
+  
+}*/

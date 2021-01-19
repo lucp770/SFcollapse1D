@@ -19,8 +19,8 @@ double bissection(double a, double b, double precision){
 }
 
 int main(){
-	std::cout << bissection(1,2,0.00001) << std::endl;
-
+	//std::cout << bissection(1,2,0.00001) << std::endl;
+	
 return 0;
 }
 
