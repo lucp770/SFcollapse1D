@@ -61,6 +61,9 @@ namespace utilities {
   void output_gridfunctions_central_values( const int, const grid::parameters,
 					    const realvec, const realvec, const realvec, const realvec, const realvec );
 
+  void output_comparison(const int, const grid::parameters,
+                 const realvec , const realvec, const realvec, const realvec, const realvec );
+
   /* Output energy density to file */
   void output_energy_density_to_file( const grid::parameters, const realvec, const realvec, const realvec, const int );
 

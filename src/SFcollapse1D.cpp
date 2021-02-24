@@ -109,6 +109,7 @@ if (CHKP =='y'){
   // utilities::output_energy_density_to_file( grid, Phi.level_nm1, Pi.level_nm1, a.level_nm1, 0 );
 
   utilities::output_gridfunctions_central_values( 0, grid, phi.level_nm1, Phi.level_nm1, Pi.level_nm1, a.level_nm1, alpha.level_nm1 );
+  utilities::output_comparison( 0, grid, phi.level_nm1, Phi.level_nm1, Pi.level_nm1, a.level_nm1, alpha.level_nm1 );
 
   /* The first time step is special, requires two half-integrations */
 
@@ -212,7 +213,7 @@ if (CHKP =='y'){
   // utilities::output_energy_density_to_file( grid, Phi.level_n, Pi.level_n, a.level_n, 1 );
 
   utilities::output_gridfunctions_central_values( 1, grid, phi.level_n, Phi.level_n, Pi.level_n, a.level_n, alpha.level_n );
-
+  utilities::output_comparison( 1, grid, phi.level_nm1, Phi.level_nm1, Pi.level_nm1, a.level_nm1, alpha.level_nm1 );
   /* Define the central density */
   real max_central_density = 0.0;
   {
@@ -329,18 +330,11 @@ if (CHKP =='y'){
     //}
 
     // Output central values
-     if( grid.t < 7.0 ) {//output a cada 500 arquivos
-     if( n%500 == 0 ) {
-     	utilities::output_gridfunctions_central_values( n, grid, phi.level_np1, Phi.level_np1, Pi.level_np1, a.level_np1, alpha.level_np1 );
+     if( n%200 == 0 ) {
+      utilities::output_gridfunctions_central_values( n, grid, phi.level_np1, Phi.level_np1, Pi.level_np1, a.level_np1, alpha.level_np1 );
        }
-     }
-     else if( grid.t > 7.0 && grid.t < 8.0 ) {//output a cada 200 arquivos
-       if( n%200 == 0 ) {
-     	utilities::output_gridfunctions_central_values( n, grid, phi.level_np1, Phi.level_np1, Pi.level_np1, a.level_np1, alpha.level_np1 );
-       }
-     }
-     else {
-       utilities::output_gridfunctions_central_values( n, grid, phi.level_np1, Phi.level_np1, Pi.level_np1, a.level_np1, alpha.level_np1 );
+     if(n%200 == 0){
+      utilities::output_comparison( n, grid, phi.level_nm1, Phi.level_nm1, Pi.level_nm1, a.level_nm1, alpha.level_nm1 );
      }
     
     /* Shift time levels appropriately */

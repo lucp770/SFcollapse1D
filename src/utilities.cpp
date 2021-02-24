@@ -585,6 +585,32 @@ void utilities::output_gridfunctions_central_values( const int n, const grid::pa
 
 }
 
+void utilities::output_comparison(const int n, const grid::parameters grid,
+                 const realvec phi, const realvec Phi, const realvec Pi, const realvec a, const realvec alpha ){
+
+  DECLARE_GRID_PARAMETERS;
+
+  ofstream out_comp;
+  // const string filename = "out_central_values"+to_string(phi0)+".dat";
+  const string filename = "out_comp.dat";
+  if( t > 0.0 ) {
+    out_comp.open(filename,ios_base::app);
+  }
+  else {
+    out_comp.open(filename);
+  }
+
+  out_comp << scientific << setprecision(15)
+        << t        << " "
+        << alpha[100] << " "
+        << a[100] << " "
+        << Phi[100] << " "
+        << Pi[100]   << endl;
+
+  out_comp.close();
+
+}
+
 void utilities::output_energy_density_to_file( const grid::parameters grid, const realvec Phi, const realvec Pi, const realvec a, const int n ) {
 
   DECLARE_GRID_PARAMETERS;
